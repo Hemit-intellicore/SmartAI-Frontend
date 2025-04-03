@@ -20,3 +20,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const signinForm = document.getElementById("signin-form");
+
+    if (signinForm) {
+        signinForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const response = await loginUser({ email, password });
+
+            if (response.token) {
+                localStorage.setItem("token", response.token);
+                window.location.href = "dashboard.html"; // Redirect to dashboard
+            } else {
+                alert("Login failed!");
+            }
+        });
+    }
+});
