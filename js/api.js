@@ -1,69 +1,112 @@
-// Base API URL - Update this with your actual backend URL
-const API_URL = "https://your-api-url.com/api/v1"; 
+// /js/api.js
 
-// Function to register a new user
-async function registerUser(userData) {
-    const response = await fetch(`${API_URL}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
-    });
-    return response.json();
+const API_BASE = "https://your-domain.com/api/v1"; // Replace with your real API base
+
+// Register
+async function registerUser(data) {
+  const response = await fetch(`${API_BASE}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response.json();
 }
 
-// Function to log in a user
-async function loginUser(credentials) {
-    const response = await fetch(`${API_URL}/token`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials)
-    });
-    return response.json();
+// Login
+async function loginUser(data) {
+  const response = await fetch(`${API_BASE}/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response.json();
 }
 
-// Function to delete user account
-async function deleteAccount(token) {
-    const response = await fetch(`${API_URL}/account`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return response.json();
-}
-
-// Function to upload a document
+// Upload document
 async function uploadDocument(file, token) {
-    const formData = new FormData();
-    formData.append("document", file);
+  const formData = new FormData();
+  formData.append("document", file);
 
-    const response = await fetch(`${API_URL}/documents/`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData
-    });
-    return response.json();
+  const response = await fetch(`${API_BASE}/documents/`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  });
+  return response.json();
 }
 
-// Function to chat with AI
-async function chatWithAI(message, token) {
-    const response = await fetch(`${API_URL}/chat/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ message })
-    });
-    return response.json();
+// Query document
+async function queryDocument(query, token) {
+  const response = await fetch(`${API_BASE}/query/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ query }),
+  });
+  return response.json();
 }
 
-// Function to clear chat history
+// Summarize
+async function summarizeDocument(text, token) {
+  const response = await fetch(`${API_BASE}/summarize/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ text }),
+  });
+  return response.json();
+}
+
+// Generate questions
+async function generateQuestions(text, token) {
+  const response = await fetch(`${API_BASE}/generate-questions/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ text }),
+  });
+  return response.json();
+}
+
+// Evaluate answer
+async function evaluateAnswer(answer, token) {
+  const response = await fetch(`${API_BASE}/evaluate-answer/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ answer }),
+  });
+  return response.json();
+}
+
+// Chat with AI
+async function chatWithAi(message, token) {
+  const response = await fetch(`${API_BASE}/chat/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message }),
+  });
+  return response.json();
+}
+
+// Clear chat
 async function clearChat(token) {
-    const response = await fetch(`${API_URL}/chat/`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` }
-    });
-    return response.json();
+  const response = await fetch(`${API_BASE}/chat/`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.json();
 }
