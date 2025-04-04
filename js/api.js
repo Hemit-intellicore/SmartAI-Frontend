@@ -1,6 +1,6 @@
 // /js/api.js
 
-const API_BASE = "https://your-domain.com/api/v1"; // Replace with your real API base
+const API_BASE = "http://63.35.251.168:8000/docs"; // real API base
 
 // Register
 async function registerUser(data) {
